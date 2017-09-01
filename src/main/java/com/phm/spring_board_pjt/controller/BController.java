@@ -2,6 +2,8 @@ package com.phm.spring_board_pjt.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import com.phm.spring_board_pjt.command.BModifyCommand;
 import com.phm.spring_board_pjt.command.BReplyCommand;
 import com.phm.spring_board_pjt.command.BReplyViewCommand;
 import com.phm.spring_board_pjt.command.BWriteCommand;
+import com.phm.spring_board_pjt.util.Constant;
 
 @Controller
 public class BController {
@@ -23,6 +26,13 @@ public class BController {
 	// 디스패쳐에서 컨트롤러를 찾는 것은 servlet-context.xml의 component-scan tag를 참조하여 스캔하게된다.
 	// @컨트롤러 어노테이션이 있는 것을 찾아간다.
 	BCommand command;
+	JdbcTemplate template;
+	
+	@Autowired
+	public void setTemplat(JdbcTemplate template) {
+		this.template = template;
+		Constant.template = template;
+	}
 
 	@RequestMapping("/list")
 	public String list(Model model) {
